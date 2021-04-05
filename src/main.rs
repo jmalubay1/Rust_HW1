@@ -42,5 +42,13 @@ fn main() {
     nums.push(t);
   }
 
+  println!("{}",u32::max_value());
   println!("{}",modexp(nums[0],nums[1],nums[2]));
+}
+
+#[test]
+fn test_modexp() {
+  assert_eq!(modexp(2,20,17),16);
+  assert_eq!(modexp(5,15,22),1);
+  assert!(modexp(u64::from(u32::max_value())+1,2,10).is_err());
 }
