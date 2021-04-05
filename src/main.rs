@@ -5,7 +5,7 @@
 /// Print a usage error message and exit.
 /// This function is from the Moodle HW1 hints.
 fn error() -> ! {
-    eprintln!("modexp: usage: modexp <x> <y> <m>");
+    eprintln!("modexp: usage: modexp <x> <y> <m>, where x,y,m >= 0");
     std::process::exit(1);
 }
 
@@ -35,5 +35,12 @@ fn modexp(x:u64,y:u64,m:u64) -> u64 {
 }
 
 fn main() {
-    println!("{}",modexp(2,20,17));
+  let mut nums = Vec::new();
+
+  for arg in std::env::args().skip(1){
+    let t = parsenum(&arg);
+    nums.push(t);
+  }
+
+  println!("{}",modexp(nums[0],nums[1],nums[2]));
 }
