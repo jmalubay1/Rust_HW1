@@ -5,7 +5,7 @@
 /// Print a usage error message and exit.
 /// This function is from the Moodle HW1 hints.
 fn error() -> ! {
-    eprintln!("modexp: usage: modexp <x> <y> <m>, where x,y,m >= 0");
+    eprintln!("modexp: usage: cargo run <x> <y> <m>, where 0 <= x,y > 2^32 and 0 < m > 2^32");
     std::process::exit(1);
 }
 
@@ -16,7 +16,7 @@ fn parsenum(s: &str) -> u64 {
     u64::from(n)
 }
 
-/// Modular exponenttation function (x^y) mod m
+/// Modular exponentation function (x^y) mod m
 /// Input: x,y,m - positive inegters less than 2^32
 /// Output: u64
 fn modexp(x:u64,y:u64,m:u64) -> u64 {
@@ -41,14 +41,15 @@ fn main() {
     let t = parsenum(&arg);
     nums.push(t);
   }
-
-  println!("{}",u32::max_value());
+  if nums[2] == 0 {error()}
   println!("{}",modexp(nums[0],nums[1],nums[2]));
 }
 
 #[test]
-fn test_modexp() {
+fn correctness() {
   assert_eq!(modexp(2,20,17),16);
   assert_eq!(modexp(5,15,22),1);
-  assert!(modexp(u64::from(u32::max_value())+1,2,10).is_err());
+  assert_eq!(modexp(356,2548,54),22);
+  assert_eq!(modexp(u64::from(u32::max_value()),u64::from(u32::max_value()),u64::from(u32::max_value())),0);
 }
+
